@@ -1,0 +1,110 @@
+﻿
+# 🌍 Application de Détermination des Visas d'Affaires
+
+Application Streamlit interactive pour déterminer rapidement les visas requis pour les déplacements professionnels internationaux.
+
+## 📋 Prérequis
+
+- Python 3.7 ou supérieur
+- Streamlit
+- Pandas
+- OpenPyXL
+
+## 🚀 Installation
+
+### 1. Installer les dépendances
+
+```bash
+pip install streamlit pandas openpyxl
+```
+
+## ▶️ Lancement de l'application
+
+### Méthode 1 : Ligne de commande
+
+```bash
+streamlit run app_visa_streamlit.py
+```
+
+### Méthode 2 : Avec le fichier Excel dans le même dossier
+
+1. Placez le fichier `Visas_Affaires_Court_Sejour_Mondial.xlsx` dans le même dossier que `app_visa_streamlit.py`
+2. Lancez la commande :
+
+```bash
+streamlit run app_visa_streamlit.py
+```
+
+### Méthode 3 : Spécifier le port
+
+```bash
+streamlit run app_visa_streamlit.py --server.port 8501
+```
+
+## 📱 Utilisation
+
+1. **Remplissez le formulaire** avec les informations suivantes :
+   - Nationalité du collaborateur
+   - Pays d'origine
+   - Pays de destination
+   - Durée du séjour
+   - Type de séjour
+
+2. **Cliquez sur "Déterminer le Visa requis"**
+
+3. **Consultez les résultats** :
+   - Type de visa requis
+   - Conditions d'obtention détaillées
+
+## 🎨 Fonctionnalités
+
+✅ Interface moderne et intuitive
+✅ Design responsive avec dégradés colorés
+✅ Menus déroulants dynamiques basés sur les données Excel
+✅ Recherche intelligente avec suggestions
+✅ Affichage clair des résultats
+✅ Messages d'erreur informatifs
+
+## 📂 Structure des fichiers
+
+```
+.
+├── app_visa_streamlit.py                          # Application Streamlit
+├── Visas_Affaires_Court_Sejour_Mondial.xlsx      # Base de données des visas
+└── README.md                                       # Ce fichier
+```
+
+## 🔧 Configuration
+
+L'application cherche automatiquement le fichier Excel dans :
+- `/mnt/user-data/uploads/`
+- `/mnt/user-data/outputs/`
+- Le répertoire courant
+
+## 💡 Conseils
+
+- Les résultats sont fournis à titre indicatif
+- Vérifiez toujours auprès des autorités consulaires
+- La base de données est mise à jour régulièrement
+
+## 🏢 À propos
+
+Développé pour **Executive Relocations**
+Partenaire officiel du Ministère de la Défense - Programme Mut'Actions
+
+## 📞 Contact
+
+Pour toute question ou assistance :
+- 📧 Email : info@executive-relocations.fr
+- 🌐 Site web : www.executive-relocations.fr
+
+## 📝 Notes techniques
+
+- L'application utilise le cache Streamlit pour optimiser les performances
+- Le fichier Excel doit contenir les colonnes exactes définies dans le script
+- Compatible avec tous les navigateurs modernes
+
+---
+
+**Version** : 1.0
+**Dernière mise à jour** : Novembre 2025
