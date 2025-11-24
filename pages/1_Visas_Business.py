@@ -174,6 +174,10 @@ def find_visa_info(df, nationalite, pays_origine, pays_destination, duree, type_
 # En-tête de l'application
 st.markdown('<h1>Visas d\'Affaires</h1>', unsafe_allow_html=True)
 st.markdown('<p class="subtitle">Trouvez rapidement le visa requis pour les déplacements professionnels internationaux de vos collaborateurs</p>', unsafe_allow_html=True)
+
+st.markdown("")
+st.markdown('<p class="subtitle">⚠️ Les informations sont données à tritre indicative uniquement.</p>', unsafe_allow_html=True)
+st.markdown("")
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
 # Charger les données
@@ -184,41 +188,33 @@ if df is not None:
     col1, col2, col3 = st.columns([1, 1, 1.2])
     
     with col1:
-        st.markdown("### 👤 Informations collaborateur")
+        st.markdown("### 👤 Collaborateur")
         st.markdown("")
         
         # Menu déroulant pour la nationalité
         nationalites = ["-- Sélectionnez --"] + sorted(df['Nationalité'].unique().tolist())
         nationalite = st.selectbox(
-            "🌐 Nationalité",
+            "Nationalité",
             options=nationalites,
             help="Sélectionnez la nationalité du collaborateur"
-        )
+        )        
+    
+    with col2:
+        st.markdown("### ✈️ Voyage")
+        st.markdown("")
         
         # Menu déroulant pour le pays d'origine
         pays_origines = ["-- Sélectionnez --"] + sorted(df['Pays d\'origine'].unique().tolist())
         pays_origine = st.selectbox(
-            "🏠 Pays d'origine",
+            "Pays d'origine",
             options=pays_origines,
             help="Sélectionnez le pays de départ"
         )
-        
-        # Menu déroulant pour le type de séjour
-        types_sejour = ["-- Sélectionnez --"] + sorted(df['Type de séjour'].unique().tolist())
-        type_sejour = st.selectbox(
-            "💼 Type de séjour",
-            options=types_sejour,
-            help="Sélectionnez le type de déplacement"
-        )
-    
-    with col2:
-        st.markdown("### 🎯 Destination et durée")
-        st.markdown("")
-        
+
         # Menu déroulant pour le pays de destination
         pays_destinations = ["-- Sélectionnez --"] + sorted(df['Pays de destination'].unique().tolist())
         pays_destination = st.selectbox(
-            "📍 Pays de destination",
+            "Pays de destination",
             options=pays_destinations,
             help="Sélectionnez le pays de destination"
         )
@@ -226,9 +222,18 @@ if df is not None:
         # Menu déroulant pour la durée du séjour
         durees = ["-- Sélectionnez --"] + sorted(df['Durée du séjour'].unique().tolist())
         duree = st.selectbox(
-            "⏱️ Durée du séjour",
+            "Durée du séjour",
             options=durees,
             help="Sélectionnez la durée prévue du séjour"
+        )
+
+        
+        # Menu déroulant pour le type de séjour
+        types_sejour = ["-- Sélectionnez --"] + sorted(df['Type de séjour'].unique().tolist())
+        type_sejour = st.selectbox(
+            "Type de séjour",
+            options=types_sejour,
+            help="Sélectionnez le type de déplacement"
         )
         
         # Bouton de recherche
@@ -248,7 +253,7 @@ if df is not None:
                 pays_destination == "-- Sélectionnez --" or 
                 duree == "-- Sélectionnez --" or 
                 type_sejour == "-- Sélectionnez --"):
-                st.warning("⚠️ Veuillez remplir tous les champs du formulaire avant de lancer la recherche.")
+                st.warning("Merci de compléter tous les champs du formulaire avant de lancer la recherche.")
             else:
                 with st.spinner("🔄 Recherche en cours..."):
                     visa_type, conditions = find_visa_info(
@@ -259,21 +264,21 @@ if df is not None:
                     # Afficher le récapitulatif compact
                     st.markdown(f"""
                     <div style="padding: 0.8rem; background: #f0f2f6; border-radius: 10px; margin-bottom: 0.8rem;">
-                        <div style="font-weight: 600; color: #283C78; font-size: 0.9rem; margin-bottom: 0.3rem;">👤 Nationalité</div>
+                        <div style="font-weight: 600; color: #283C78; font-size: 0.9rem; margin-bottom: 0.3rem;">Nationalité</div>
                         <div style="font-size: 0.95rem;">{nationalite}</div>
                     </div>
                     """, unsafe_allow_html=True)
                     
                     st.markdown(f"""
                     <div style="padding: 0.8rem; background: #f0f2f6; border-radius: 10px; margin-bottom: 0.8rem;">
-                        <div style="font-weight: 600; color: #283C78; font-size: 0.9rem; margin-bottom: 0.3rem;">🏠 → 📍 Trajet</div>
+                        <div style="font-weight: 600; color: #283C78; font-size: 0.9rem; margin-bottom: 0.3rem;">Trajet</div>
                         <div style="font-size: 0.95rem;">{pays_origine} → {pays_destination}</div>
                     </div>
                     """, unsafe_allow_html=True)
                     
                     st.markdown(f"""
                     <div style="padding: 0.8rem; background: #f0f2f6; border-radius: 10px; margin-bottom: 1rem;">
-                        <div style="font-weight: 600; color: #283C78; font-size: 0.9rem; margin-bottom: 0.3rem;">⏱️ Durée</div>
+                        <div style="font-weight: 600; color: #283C78; font-size: 0.9rem; margin-bottom: 0.3rem;">Durée du séjour</div>
                         <div style="font-size: 0.95rem;">{duree}</div>
                     </div>
                     """, unsafe_allow_html=True)
@@ -281,42 +286,39 @@ if df is not None:
                     st.markdown("---")
                     
                     # Type de visa
+                    st.markdown("**🛂 Type de Visa requis**")
                     st.markdown(f"""
-                    <div style="background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 1rem; border-radius: 10px; text-align: center; font-weight: 700; margin-bottom: 1rem; font-size: 1.1rem;">
-                        🛂 {visa_type}
+                    <div style="background: #e8f2ff; padding: 1rem; border-radius: 10px; border-left: 5px solid #283C78; font-size: 0.9rem; line-height: 1.6;">
+                        {visa_type}
                     </div>
                     """, unsafe_allow_html=True)
+                    
+                    st.markdown("")
                     
                     # Conditions d'obtention
                     st.markdown("**📄 Conditions d'obtention**")
                     st.markdown(f"""
-                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; border-left: 5px solid #667eea; font-size: 0.9rem; line-height: 1.6;">
+                    <div style="background: #e8f2ff; padding: 1rem; border-radius: 10px; border-left: 5px solid #283C78; font-size: 0.9rem; line-height: 1.6;">
                         {conditions}
                     </div>
                     """, unsafe_allow_html=True)
                     
                     st.markdown("")
-                    st.info("💡 Informations à titre indicatif. Vérifiez auprès des autorités consulaires.", icon="ℹ️")
                     
                 else:
                     st.warning("""
-                    **⚠️ Aucune correspondance trouvée**
+                    **⚠️ Aucun résultat trouvé**
                     
-                    Les critères sélectionnés ne correspondent à aucune entrée dans notre base de données.
+                    Les critères sélectionnés ne correspondent à aucun type de Visa dans nos bases de données.
                     
                     **Suggestions :**
                     - Vérifiez la combinaison nationalité/origine/destination
-                    - Essayez avec des critères plus généraux
-                    - Contactez notre service pour une assistance personnalisée
+                    - Contactez votre interlocuteur Executive Relocations pour une assistance personnalisée
                     """)
         else:
-            st.info("👈 Remplissez le formulaire et cliquez sur le bouton pour obtenir le résultat.", icon="ℹ️")
+            st.info(" Merci de complèter tous les champs du formulaire.", icon="ℹ️")
 
 else:
     st.error("""
-    ❌ **Impossible de charger les données**
-    
-    Le fichier Excel des visas n'a pas pu être chargé. 
-    Veuillez vous assurer que le fichier 'Visas_Affaires_Court_Sejour_Mondial.xlsx' 
-    est présent dans le répertoire approprié.
+    ❌ **Impossible de charger les données**   
     """)
